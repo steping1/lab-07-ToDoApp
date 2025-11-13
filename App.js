@@ -11,6 +11,12 @@ export default function App() {
     setEnteredTaskText(enteredText);
   }
 
+  function deleteTaskHandler(id) {
+setTasks((currentTasks) => {
+return currentTasks.filter((task) => task.id !== id);
+});
+}
+
   function addTaskHandler() {
     if (enteredTaskText.trim().length === 0) {
       return;
@@ -47,7 +53,9 @@ export default function App() {
           <FlatList
             data={tasks}
             renderItem={({ item }) => (
-              <TodoItem text={item.text} />
+              <TodoItem text={item.text}
+              id={item.id} 
+onDelete={deleteTaskHandler} />
             )}
             keyExtractor={(item) => item.id}
             ListEmptyComponent={
