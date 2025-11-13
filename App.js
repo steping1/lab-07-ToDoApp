@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+return (
+<SafeAreaView style={styles.appContainer}>
+<View style={styles.contentContainer}>
+<Text style={styles.title}>My Todo List</Text>
+{/* Input area will go here */ }
+{/* List area will go here */ }
+</View>
+</SafeAreaView>
+);
 }
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+appContainer: {
+flex: 1,
+backgroundColor: '#f0f2f5', // Light gray background
+},
+contentContainer: {
+flex: 1,
+padding: 20,
+paddingTop: 40,
+},sa
+title: {
+fontSize: 24,
+fontWeight: 'bold',
+marginBottom: 20,
+textAlign: 'center',
+},
 });
