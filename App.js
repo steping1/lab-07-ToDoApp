@@ -1,30 +1,79 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useState } from 'react';
+
 export default function App() {
-return (
-<SafeAreaView style={styles.appContainer}>
-<View style={styles.contentContainer}>
-<Text style={styles.title}>My Todo List</Text>
-{/* Input area will go here */ }
-{/* List area will go here */ }
-</View>
-</SafeAreaView>
-);
+  const [enteredTaskText, setEnteredTaskText] = useState('');
+  const [tasks, setTasks] = useState([])
+  function taskInputHandler(enteredText) {
+  setEnteredTaskText(enteredText);
 }
+
+function addTaskHandler() {
+  if (enteredTaskText.trim().length === 0) {
+    return;
+  }
+
+  setTasks((currentTasks) => [
+    ...currentTasks,
+    { id: Math.random().toString(), text: enteredTaskText },
+  ]);
+  setEnteredTaskText('');
+}
+  return (
+    <SafeAreaView style={styles.appContainer}>
+      <View style={styles.contentContainer}>
+        <Text style={styles.title}>My Todo List</Text>
+        {<View style={styles.inputContainer}>
+  <TextInput
+    style={styles.textInput}
+    placeholder="Add a new task..."
+    onChangeText={taskInputHandler}
+    value={enteredTaskText}
+  />
+  <Button 
+    title="Add" 
+    onPress={addTaskHandler} 
+  />
+</View>}
+        {/* List area will go here */}
+      </View>
+    </SafeAreaView>
+  );
+}
+
 const styles = StyleSheet.create({
-appContainer: {
-flex: 1,
-backgroundColor: '#f0f2f5', // Light gray background
+  appContainer: {
+    flex: 1,
+    backgroundColor: '#f0f2f5', // Light gray background
+  },
+  contentContainer: {
+    flex: 1,
+    padding: 20,
+    paddingTop: 40,
+  },
+  inputContainer: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginBottom: 20,
+  borderBottomWidth: 1,
+  borderColor: '#ccc',
+  paddingBottom: 10,
 },
-contentContainer: {
-flex: 1,
-padding: 20,
-paddingTop: 40,
-},sa
-title: {
-fontSize: 24,
-fontWeight: 'bold',
-marginBottom: 20,
-textAlign: 'center',
+textInput: {
+  flex: 1, // Take up as much space as possible
+  borderWidth: 1,
+  borderColor: '#ccc',
+  padding: 10,
+  borderRadius: 6,
+  marginRight: 10,
+  fontSize: 16,
 },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
 });
